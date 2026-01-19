@@ -1,5 +1,11 @@
 import { getImagesByQuery } from './js/pixabay-api';
-import { createGallery } from './js/render-functions';
+import {
+  clearGallery,
+  createGallery,
+  hideLoader,
+  showLoader,
+} from './js/render-functions';
+import { toastError } from './js/toast';
 
 const formEl = document.querySelector('.form');
 
@@ -15,9 +21,13 @@ function searchSubmitFn(event) {
 
   if (!searchValue.trim()) {
     console.log('empty input!');
+    toastError('Please fill in the search field!');
     return;
   }
+  clearGallery();
+  showLoader();
   getImagesByQuery(searchValue.trim()).then(images => {
+    hideLoader();
     createGallery(images);
   });
 }

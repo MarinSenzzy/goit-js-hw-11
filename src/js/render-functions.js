@@ -2,6 +2,8 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryEl = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+
 const createMarkup = images => {
   return images
     .map(
@@ -49,7 +51,14 @@ const createMarkup = images => {
 };
 export function createGallery(images) {
   galleryEl.insertAdjacentHTML('beforeend', createMarkup(images));
+  new SimpleLightbox('.gallery a').refresh();
 }
-function clearGallery() {}
-function showLoader() {}
-function hideLoader() {}
+export function clearGallery() {
+  galleryEl.innerHTML = '';
+}
+export function showLoader() {
+  loader.style.display = 'inline-block';
+}
+export function hideLoader() {
+  loader.style.display = 'none';
+}
