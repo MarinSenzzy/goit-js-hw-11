@@ -5,13 +5,17 @@ const BASE_URL = 'https://pixabay.com';
 axios.defaults.baseURL = BASE_URL;
 
 export function getImagesByQuery(query) {
-  return axios.get('/api/', {
-    params: {
-      q: query || '',
-      image_type: 'photo',
-      key: API,
-      orientation: 'horizontal',
-      safesearch: true,
-    },
-  });
+  return axios
+    .get('/api/', {
+      params: {
+        q: query || '',
+        image_type: 'photo',
+        key: API,
+        orientation: 'horizontal',
+        safesearch: true,
+      },
+    })
+    .then(response => {
+      return response.data;
+    });
 }

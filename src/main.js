@@ -26,20 +26,18 @@ function searchSubmitFn(event) {
   clearGallery();
   showLoader();
   getImagesByQuery(searchValue.trim())
-    .then(function (response) {
-      hideLoader();
+    .then(function (data) {
+      console.log(data);
 
-      if (response.data.total === 0) {
+      if (data.total === 0) {
         toastError(
           'Sorry, there are no images matching your search query. Please try again!'
         );
         return;
       }
-      createGallery(response.data.hits);
+      createGallery(data.hits);
     })
     .catch(function (error) {
-      hideLoader();
-
       // if (error.response) {
       //   toastError(error.response.status);
 
@@ -56,5 +54,8 @@ function searchSubmitFn(event) {
       // console.log(error.config);
 
       toastError(error.message);
+    })
+    .finally(function () {
+      hideLoader();
     });
 }
