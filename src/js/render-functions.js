@@ -3,6 +3,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryEl = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const lightbox = new SimpleLightbox('.gallery a');
 
 const createMarkup = images => {
   return images
@@ -51,14 +52,14 @@ const createMarkup = images => {
 };
 export function createGallery(images) {
   galleryEl.insertAdjacentHTML('beforeend', createMarkup(images));
-  new SimpleLightbox('.gallery a').refresh();
+  lightbox.refresh();
 }
 export function clearGallery() {
   galleryEl.innerHTML = '';
 }
 export function showLoader() {
-  loader.style.display = 'inline-block';
+  loader.classList.remove('is-hidden');
 }
 export function hideLoader() {
-  loader.style.display = 'none';
+  loader.classList.add('is-hidden');
 }

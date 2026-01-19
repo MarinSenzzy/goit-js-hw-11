@@ -20,14 +20,41 @@ function searchSubmitFn(event) {
   } = form.elements;
 
   if (!searchValue.trim()) {
-    console.log('empty input!');
     toastError('Please fill in the search field!');
     return;
   }
   clearGallery();
   showLoader();
-  getImagesByQuery(searchValue.trim()).then(images => {
-    hideLoader();
-    createGallery(images);
-  });
+  getImagesByQuery(searchValue.trim())
+    .then(function (response) {
+      hideLoader();
+
+      if (response.data.total === 0) {
+        toastError(
+          'Sorry, there are no images matching your search query. Please try again!'
+        );
+        return;
+      }
+      createGallery(response.data.hits);
+    })
+    .catch(function (error) {
+      hideLoader();
+
+      // if (error.response) {
+      //   toastError(error.response.status);
+
+      //   console.log(error.response.data);
+      //   console.log(error.response.status);
+      //   console.log(error.response.headers);
+      // } else if (error.request) {
+      //   toastError('error request');
+      //   console.log(error.request);
+      // } else {
+      //   toastError(error.message);
+      //   console.log('Error', error.message);
+      // }
+      // console.log(error.config);
+
+      toastError(error.message);
+    });
 }

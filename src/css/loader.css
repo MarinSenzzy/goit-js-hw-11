@@ -2,8 +2,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    /* display: inline-block; */
-    display: none;
+    display: inline-block;
+    /* display: none; */
     border-top: 4px solid #c2b4b4;
     border-right: 4px solid transparent;
     box-sizing: border-box;
@@ -40,4 +40,8 @@
     left: 50%;
     translate: -50% -50%;
 
+}
+
+.is-hidden {
+    display: none;
 }
